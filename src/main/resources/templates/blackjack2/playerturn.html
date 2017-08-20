@@ -8,22 +8,39 @@
 			<h1>Your Turn</h1>
 	
 	<!--Dealers cards go here...make sure to hide one  -->
+	
+	<h2>Dealer</h2>
+	
+			{{#dealersHand}}
+				{{ displayValue }} {{ suit }}
+			{{/dealersHand}}
 		
 	<hr>
-	
+
 	<!--Players cards go here  -->
-			
+	
+	<h3>Player One</h3>
+	
+			{{#playersHand}}
+				{{ displayValue }} {{ suit }}
+			{{/playersHand}}
+	
+		<div>
 			<form method=post action=hit>
 				<button>Hit</button>
 			</form>
-			
+		</div>
+	
+		<div>
 			<form method=post action=stand>
 				<button>Stand</button>
 			</form>
+		</div>		
 			
-	{{remainingBalance}}
-	{{startingBalance}}		
-			
+		<p> This is what's left in your wallet {{remainingBalance}} </p>
+		
+		<p> This is what you started with {{startingBalance}} </p>		
+				
 		</body>
 	
 	</html>

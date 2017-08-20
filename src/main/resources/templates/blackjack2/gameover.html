@@ -6,18 +6,38 @@
 	
 		<body>
 			<h1>Game Over</h1>
+
+			{{#playerWin}}
+				{{> blackjack2/congratsform }}
+			{{/playerWin}}
+			
+			{{#playerLost}}
+				{{> blackjack2/loserform }}
+			{{/playerLost}}
+			
+					<h2>Dealer</h2>
 	
-			<h2>You ran out of cards!</h2>
-			
-			<p>or</p>
-			
-			<h3>You ran out of money!</h3>
-			
-			
+					<div>
+					{{#dealersHand}}
+						{{ displayValue }} {{ suit }}
+					{{/dealersHand}}
+					</div>
+											
+					<hr>
+					
+					<h3>Player One</h3>
+					
+					<div>					
+					{{#playersHand}}
+						{{ displayValue }} {{ suit }}
+					{{/playersHand}}
+					</div>
+				
+			<div>
 			<form method=post action=playAgain>
 				<button>Play Again?</button>
 			</form>
-			
+			</div>
 		</body>
 	
 	</html>

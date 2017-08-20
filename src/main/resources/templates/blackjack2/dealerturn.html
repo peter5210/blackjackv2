@@ -5,18 +5,42 @@
 		</head>
 	
 		<body>
-			<h1>Dealers Turn</h1>
+			<h1>Dealer's turn</h1>
 	
 	<!--Dealers cards go here...make sure to hide one  -->
+	
+	<h2>Dealer</h2>
+	
+			{{#dealersHand}}
+				{{ displayValue }} {{ suit }}
+			{{/dealersHand}}
 		
 	<hr>
-	
+
 	<!--Players cards go here  -->
-			
-			<form method=post action=playAgain>
-				<button>Play Again?</button>
+	
+	<h3>Player One</h3>
+	
+			{{#playersHand}}
+				{{ displayValue }} {{ suit }}
+			{{/playersHand}}
+	
+		<div>
+			<form method=post action=hit>
+				<button>Hit</button>
 			</form>
+		</div>
+	
+		<div>
+			<form method=post action=stand>
+				<button>Stand</button>
+			</form>
+		</div>		
 			
+		<p> This is what's left in your wallet {{remainingBalance}} </p>
+		
+		<p> This is what you started with {{startingBalance}} </p>		
+				
 		</body>
 	
 	</html>
