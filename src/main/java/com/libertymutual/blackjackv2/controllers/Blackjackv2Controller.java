@@ -70,19 +70,8 @@ public class Blackjackv2Controller {
 //		return playerWin = true;
 //	} 
 
-	public int payout() {
-		if (dealer.playerBlackjackWin) {
-			wallet.payoutForBlackjackWin();
-			} if (dealer.playerPush); {
-				wallet.payoutForPush();
-				} if (!dealer.playerWin); {
-					 wallet.payoutForWin();
-					} return wallet.payoutForLoss();
-	
-	}		
 
-
-//landing page for the game, no bet has been made.
+	//landing page for the game, no bet has been made.
 @GetMapping("/")
 public String homePage(Model model) {
 	model.addAttribute("Balance", wallet.getbalance());
@@ -133,7 +122,7 @@ public ModelAndView readyPlayerOne() {
 		modelAndView.addObject("dealersHand", dealer.getHand());
 		modelAndView.addObject("playersHand", playerOne.getHand());
 		modelAndView.addObject("Busted", "Busted");
-		modelAndView.addObject("balance", wallet.payoutForLoss());
+		modelAndView.addObject("balance", dealer.payout(wallet));
 
 		return modelAndView;	
 		}
@@ -173,11 +162,11 @@ public ModelAndView playerHit() {
 		modelAndView.addObject("dealersHand", dealer.getHand());
 		modelAndView.addObject("playersHand", playerOne.getHand());
 		modelAndView.addObject("Busted", "Busted");
-		modelAndView.addObject("balance", wallet.payoutForLoss());
+		modelAndView.addObject("balance", dealer.payout(wallet));
 
 		return modelAndView;
 	}
-	
+	//else continue on with the game....represent the screen.
 	ModelAndView modelAndView = new ModelAndView("blackjack2/playerturn");
 	modelAndView.addObject("remainingBalance", wallet.getbalance());
 	modelAndView.addObject("dealersHoleCard", dealer.getFirstCard());
@@ -198,17 +187,17 @@ public ModelAndView playerStand() {
 		Card card = deck.removeCard();
 		dealer.takeCard(card);
 	}
-
-	if (!dealer.dealerBust()); {
+	
+	//if the dealer doesn't bust then compare results and see who won.
+	if (dealer.dealerBust()); {
 		ModelAndView modelAndView = new ModelAndView("blackjack2/gameover");
 		//This is mandatory for the game over form
 		modelAndView.addObject("dealersHand", dealer.getHand());
 		modelAndView.addObject("playersHand", playerOne.getHand());
 		modelAndView.addObject("Busted", "Dealer Busted You WIN");
-		modelAndView.addObject("balance", wallet.payoutForWin());
 		
 		//payout
-		modelAndView.addObject("balance", wallet.payoutForWin());
+		modelAndView.addObject("balance", dealer.payout(wallet));
 			
 		//extra details needed for the form
 		modelAndView.addObject("blackJackWin", "");
@@ -216,13 +205,15 @@ public ModelAndView playerStand() {
 		modelAndView.addObject("playerPush", "");
 		return modelAndView;
 	}
-		if (dealer.playerWin);
+		//figure out who won and make the applicable payout.
+		if (dealer.isPlayerWin() == true); {
+			
 		ModelAndView modelAndView = new ModelAndView("blackjack2/gameover");
 		//This is mandatory for the game over form
 		modelAndView.addObject("dealersHand", dealer.getHand());
 		modelAndView.addObject("playersHand", playerOne.getHand());
 		modelAndView.addObject("Busted", "");
-		modelAndView.addObject("balance", wallet.payoutForWin());
+		modelAndView.addObject("balance", dealer.payout(wallet));
 		
 		//payout
 		modelAndView.addObject("balance", wallet.payoutForWin());
@@ -231,8 +222,9 @@ public ModelAndView playerStand() {
 		modelAndView.addObject("blackJackWin", dealer.playerBlackjackWin);
 		modelAndView.addObject("playerStandardWin", dealer.playerWin);
 		modelAndView.addObject("playerPush", dealer.playerPush);
-		return modelAndView;
-}
+		return modelAndView; 
+		}
+}	
 
 	
 	

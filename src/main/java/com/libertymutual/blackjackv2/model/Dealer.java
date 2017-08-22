@@ -5,6 +5,9 @@ import java.util.ArrayList;
 public class Dealer {
 	
 	ArrayList<Card> cards;
+	public boolean playerBlackjackWin;
+	public boolean playerWin;
+	public boolean playerPush;
 	
 	public Dealer() {
 		cards = new ArrayList<Card>();
@@ -48,10 +51,6 @@ public class Dealer {
 		return dealerBust = false;
 	}
 
-	public boolean playerBlackjackWin;
-	public boolean playerWin;
-	public boolean playerPush;
-
 	public boolean playerWin(int dealerFirstTotal, int dealerSecondTotal, int playerFirstTotal, int playerSecondTotal, PlayerOne playerOne) {
 		dealerFirstTotal = totalCardValue()[0];
 		dealerSecondTotal = totalCardValue()[1];
@@ -71,5 +70,28 @@ public class Dealer {
 		}		
 		return playerWin = true;
 	} 
+	
+	public int payout(Wallet wallet) {
+		if (playerBlackjackWin) {
+			wallet.payoutForBlackjackWin();
+			} if (playerPush); {
+				wallet.payoutForPush();
+				} if (!playerWin); {
+					 wallet.payoutForWin();
+					} return wallet.payoutForLoss();
+	
+	}
+
+	public boolean isPlayerBlackjackWin() {
+		return playerBlackjackWin;
+	}
+
+	public boolean isPlayerWin() {
+		return playerWin;
+	}
+
+	public boolean isPlayerPush() {
+		return playerPush;
+	}		
 	
 }
