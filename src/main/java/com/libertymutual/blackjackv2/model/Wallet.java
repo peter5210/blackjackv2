@@ -2,25 +2,41 @@ package com.libertymutual.blackjackv2.model;
 
 public class Wallet {
 
-	public int startingBalance = 100;
+	public int balance;
 	public int bet;
 	
 	public Wallet() {
+		this.balance = 100;
 	}
 	
-	public int howMuchDoIHaveLeft(int betAmount) {
+	public int getStartingBalance(int betAmount) {
 		bet = betAmount;
-		int remainingBalance;
-		remainingBalance = startingBalance - bet;
-		return remainingBalance; 
+		balance = balance - bet;
+		return balance; 
 	}
 
-	public int getStartingBalance() {
-		return startingBalance;
+	public int getbalance() {
+		return balance;
 	}
 
 	public int getbet() {
 		return bet;
+	}
+	
+	public int payoutForBlackjackWin() {
+		return balance = balance + (bet * 2);
+	}
+	
+	public int payoutForPush() {
+		return balance = balance + bet;
+	}	
+	
+	public int payoutForWin() {
+		return balance = (int) (balance + (bet * 1.5));
+	}
+	
+	public int payoutForLoss() {
+		return balance;
 	}
 	
 }

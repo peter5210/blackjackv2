@@ -7,17 +7,15 @@
 		<body>
 			<h1>Your Turn</h1>
 	
-	<!--Dealers cards go here...make sure to hide one  -->
-	
 	<h2>Dealer</h2>
 	
-			{{#dealersHand}}
-				{{ displayValue }} {{ suit }}
-			{{/dealersHand}}
+		{{#dealersHoleCard}}
+			{{ displayValue }} {{ suit }}
+		{{/dealersHoleCard}}
+		
+		Hole Card
 		
 	<hr>
-
-	<!--Players cards go here  -->
 	
 	<h3>Player One</h3>
 	
@@ -36,10 +34,7 @@
 				<button>Stand</button>
 			</form>
 		</div>		
-			
-		<p> This is what's left in your wallet {{remainingBalance}} </p>
-		
-		<p> This is what you started with {{startingBalance}} </p>		
+	
 				
 		</body>
 	

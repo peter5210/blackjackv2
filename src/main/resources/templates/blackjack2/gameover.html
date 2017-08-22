@@ -6,6 +6,8 @@
 	
 		<body>
 			<h1>Game Over</h1>
+			
+			<h3>{{ Busted }}</h3>
 
 			{{#playerWin}}
 				{{> blackjack2/congratsform }}
@@ -13,7 +15,7 @@
 			
 			{{#playerLost}}
 				{{> blackjack2/loserform }}
-			{{/playerLost}}
+			{{/playerLost}}		
 			
 					<h2>Dealer</h2>
 	
@@ -33,6 +35,11 @@
 					{{/playersHand}}
 					</div>
 				
+				
+			<br>	
+			
+			What's left in your wallet ${{ balance }}
+			
 			<div>
 			<form method=post action=playAgain>
 				<button>Play Again?</button>

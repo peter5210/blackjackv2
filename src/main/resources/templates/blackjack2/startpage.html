@@ -7,11 +7,17 @@
 		<body>
 			<h1>Do you want to play a game?</h1>
 			
+			<h2>You bet ${{ bet }}</h2>
+			<h3>You have ${{ remainingBalance }}</h3>
+			
+			<br>
+			
+			<div>
 			<form method=post action=startGame>
-				<input autofocus type="number" step="any" name="betAmount" required>
-				<button>Bet</button>
+				<button>Play</button>
 			</form>
-	
+			</div>
+			
 		</body>
 	
 	</html>

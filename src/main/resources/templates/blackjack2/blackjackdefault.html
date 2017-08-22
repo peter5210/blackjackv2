@@ -1,0 +1,22 @@
+<!doctype html>
+	<html>	
+		<head>
+			<title>Blackjack</title>
+		</head>
+	
+		<body>
+			<h1>Do you want to play a game?</h1>
+			
+			<h2>You have {{ Balance }}</h2>
+			
+			 	
+			<p>Max bet is $5</p>
+			<form method=post action=betStart>
+				<input autofocus type="number" min="0" max="5" step="1" name="betAmount" required>
+				<button>Bet</button>
+			</form>
+			
+			
+		</body>
+	
+	</html>

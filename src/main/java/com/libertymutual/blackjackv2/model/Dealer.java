@@ -18,6 +18,10 @@ public class Dealer {
 		return cards;
 	}
 	
+	public Card getFirstCard() {
+		return cards.get(0);
+	}
+
 	public void clearHand() {
 		cards.clear();
 	}
@@ -32,4 +36,40 @@ public class Dealer {
 		
 		return sums;
 	}
+	
+	int firstNumber = totalCardValue()[0];
+	int secondNumber = totalCardValue()[1];
+	boolean dealerBust;
+	
+	public boolean dealerBust() {
+		if (firstNumber > 21 && secondNumber > 21) {
+		dealerBust = true; 
+		}
+		return dealerBust = false;
+	}
+
+	public boolean playerBlackjackWin;
+	public boolean playerWin;
+	public boolean playerPush;
+
+	public boolean playerWin(int dealerFirstTotal, int dealerSecondTotal, int playerFirstTotal, int playerSecondTotal, PlayerOne playerOne) {
+		dealerFirstTotal = totalCardValue()[0];
+		dealerSecondTotal = totalCardValue()[1];
+		playerFirstTotal = playerOne.totalCardValue()[0];
+		playerSecondTotal = playerOne.totalCardValue()[1];
+
+		if ((playerFirstTotal == 21 || playerSecondTotal == 21) && (dealerFirstTotal < 21 && dealerSecondTotal < 21)) {
+			playerBlackjackWin = true;
+		}
+		if ((dealerFirstTotal == 21 || dealerSecondTotal == 21) && (playerFirstTotal == 21 || playerSecondTotal == 21)) {
+			playerPush = true;
+		}
+		if (dealerFirstTotal > playerFirstTotal || dealerFirstTotal > playerSecondTotal) {		
+			if (dealerSecondTotal > playerFirstTotal || dealerSecondTotal > playerSecondTotal) {
+				playerWin = false;
+			}
+		}		
+		return playerWin = true;
+	} 
+	
 }
