@@ -3,32 +3,41 @@ package com.libertymutual.blackjackv2.model;
 import java.util.ArrayList;
 
 public class Dealer {
-	
+
 	ArrayList<Card> cards;
 	public boolean playerBlackjackWin;
 	public boolean playerWin;
 	public boolean playerPush;
-	
+
+	int firstNumber;
+	int secondNumber;
+
 	public Dealer() {
 		cards = new ArrayList<Card>();
 	}
 
 	public void takeCard(Card card) {
 		cards.add(card);
+		firstNumber = totalCardValue()[0];
+		secondNumber = totalCardValue()[1];
 	}
-	
+
 	public ArrayList<Card> getHand() {
 		return cards;
 	}
-	
+
 	public Card getFirstCard() {
 		return cards.get(0);
 	}
 
 	public void clearHand() {
 		cards.clear();
+		dealerBust = false;
+		playerBlackjackWin = false;
+		playerPush = false;
+		playerWin = false;
 	}
-	
+
 	public int[] totalCardValue() {
 		int[] sums = new int[] { 0, 0 };
 		for (Card c : cards) {
@@ -36,50 +45,58 @@ public class Dealer {
 			sums[0] += values[0];
 			sums[1] += values[1];
 		}
-		
+
 		return sums;
 	}
-	
-	int firstNumber = totalCardValue()[0];
-	int secondNumber = totalCardValue()[1];
+
 	boolean dealerBust;
-	
+
 	public boolean dealerBust() {
 		if (firstNumber > 21 && secondNumber > 21) {
-		dealerBust = true; 
+			dealerBust = true;
 		}
-		return dealerBust = false;
+		return dealerBust;
 	}
 
-	public boolean playerWin(int dealerFirstTotal, int dealerSecondTotal, int playerFirstTotal, int playerSecondTotal, PlayerOne playerOne) {
-		dealerFirstTotal = totalCardValue()[0];
-		dealerSecondTotal = totalCardValue()[1];
-		playerFirstTotal = playerOne.totalCardValue()[0];
-		playerSecondTotal = playerOne.totalCardValue()[1];
+	public boolean playerWin(PlayerOne playerOne) {
+		int dealerFirstTotal = totalCardValue()[0];
+		int dealerSecondTotal = totalCardValue()[1];
+		int playerFirstTotal = playerOne.totalCardValue()[0];
+		int playerSecondTotal = playerOne.totalCardValue()[1];
 
 		if ((playerFirstTotal == 21 || playerSecondTotal == 21) && (dealerFirstTotal < 21 && dealerSecondTotal < 21)) {
-			playerBlackjackWin = true;
+			return playerBlackjackWin = true;
 		}
-		if ((dealerFirstTotal == 21 || dealerSecondTotal == 21) && (playerFirstTotal == 21 || playerSecondTotal == 21)) {
-			playerPush = true;
+		if ((dealerFirstTotal == 21 || dealerSecondTotal == 21)
+				&& (playerFirstTotal == 21 || playerSecondTotal == 21)) {
+			return playerPush = true;
 		}
-		if (dealerFirstTotal > playerFirstTotal || dealerFirstTotal > playerSecondTotal) {		
-			if (dealerSecondTotal > playerFirstTotal || dealerSecondTotal > playerSecondTotal) {
-				playerWin = false;
-			}
-		}		
+		if (!dealerBust()) {
+			if (dealerFirstTotal > playerFirstTotal || dealerFirstTotal > playerSecondTotal) {
+				if (dealerSecondTotal > playerFirstTotal || dealerSecondTotal > playerSecondTotal) {
+					return playerWin = false;
+				}
+			} 
+		}
+		if (playerFirstTotal > 21 && playerSecondTotal > 21) {
+			return playerWin = false;
+		}
+			
 		return playerWin = true;
-	} 
-	
+	}
+
 	public int payout(Wallet wallet) {
 		if (playerBlackjackWin) {
-			wallet.payoutForBlackjackWin();
-			} if (playerPush); {
-				wallet.payoutForPush();
-				} if (!playerWin); {
-					 wallet.payoutForWin();
-					} return wallet.payoutForLoss();
-	
+			return wallet.payoutForBlackjackWin();
+		}
+		if (playerPush) {
+			return wallet.payoutForPush();
+		}
+		if (playerWin) {
+			return wallet.payoutForWin();
+		}
+		return wallet.payoutForLoss();
+
 	}
 
 	public boolean isPlayerBlackjackWin() {
@@ -92,6 +109,6 @@ public class Dealer {
 
 	public boolean isPlayerPush() {
 		return playerPush;
-	}		
-	
+	}
+
 }
